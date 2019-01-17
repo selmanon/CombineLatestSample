@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CombineLatestSample</string>
+    <string name="submit">Submit</string>
+    <string name="msg_demo_form_comb_latest">Monitor the state of multiple observables with the combineLatest operator. Only after all the 3 inputs contain valid entries will the submit button light up</string>
+    <string name="enter_a_valid_email_below">Enter a valid email below:</string>
+    <string name="password_than_8_chrs"><![CDATA[password (> than 8 chrs):]]></string>
+    <string name="number_between_1_amp_100"><![CDATA[number (between 1 & 100):]]></string>
+</resources>
+
