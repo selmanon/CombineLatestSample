@@ -9,9 +9,7 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.subscribers.DisposableSubscriber;
@@ -22,29 +20,21 @@ import static android.util.Patterns.EMAIL_ADDRESS;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    @BindView(R.id.btn_demo_form_valid)
     TextView btnValidIndicator;
-
-    @BindView(R.id.demo_combl_email)
     EditText email;
-
-    @BindView(R.id.demo_combl_password)
     EditText password;
-
-    @BindView(R.id.demo_combl_num)
     EditText number;
 
     private DisposableSubscriber<Boolean> disposableObserver = null;
     private Flowable<CharSequence> emailChangeObservable;
     private Flowable<CharSequence> numberChangeObservable;
     private Flowable<CharSequence> passwordChangeObservable;
-    private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        unbinder = ButterKnife.bind(this);
+        initViews();
 
         emailChangeObservable =
                 RxTextView.textChanges(email).skip(1).toFlowable(BackpressureStrategy.LATEST);
@@ -54,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 RxTextView.textChanges(number).skip(1).toFlowable(BackpressureStrategy.LATEST);
 
         combineLatestEvents();
+    }
+
+    private void initViews() {
+        btnValidIndicator = this.findViewById(R.id.btn_demo_form_valid);
+        email = this.findViewById(R.id.demo_combl_email);
+        password = this.findViewById(R.id.demo_combl_password);
+        number = this.findViewById(R.id.demo_combl_num);
     }
 
     private void combineLatestEvents() {
@@ -114,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
         disposableObserver.dispose();
     }
 }
